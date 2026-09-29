@@ -1,0 +1,2642 @@
+/* =========================================================
+   PAOLA MARIE | BABY SHOWER
+   ESTILOS PRINCIPALES
+   ========================================================= */
+
+@font-face {
+    font-family: "Joshico";
+    src: url("fonts/Joshico.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --rosa: #F6ADC1;
+    --rojo: #D1030F;
+    --blanco: #FFFFFF;
+    --rosa-claro: rgba(246, 173, 193, 0.28);
+    --rosa-suave: #fff4f7;
+    --texto: #5d2637;
+    --texto-suave: #79505f;
+    --sombra: 0 18px 45px rgba(91, 28, 46, 0.13);
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    background: #fff;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    min-width: 320px;
+    width: 100%;
+    margin: 0;
+
+    background: #fff;
+    color: var(--texto);
+
+    font-family: "Cinzel", serif;
+
+    overflow-x: hidden;
+
+    position: relative;
+}
+
+button,
+input,
+textarea {
+    font: inherit;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button {
+    border: 0;
+}
+
+
+/* =========================================================
+   PORTADA
+   ========================================================= */
+
+.portada {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+    min-height: 100svh;
+
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #fdf0f0;
+
+    transition:
+        opacity .8s ease,
+        transform .9s ease;
+}
+
+.portada.salir {
+    opacity: 0;
+    transform: scale(1.035);
+    pointer-events: none;
+}
+
+.imagen-portada {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: contain;
+    object-position: center center;
+
+    background: #fdf0f0;
+}
+
+
+/* =========================================================
+   BOTÓN ABRIR
+   ========================================================= */
+
+.boton-abrir {
+    position: absolute;
+
+    left: 50%;
+    bottom: max(34px, env(safe-area-inset-bottom));
+
+    z-index: 20;
+
+    min-width: 210px;
+    max-width: calc(100% - 40px);
+
+    padding: 14px 25px;
+
+    border: 1px solid rgba(255,255,255,.95);
+    border-radius: 999px;
+
+    color: #fff;
+    background: var(--rojo);
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.16);
+
+    font-family: "Cinzel", serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .13em;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    transform: translateX(-50%);
+
+    animation: flotarGlow 2.6s ease-in-out infinite;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.boton-abrir::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -80%;
+
+    width: 50%;
+    height: 100%;
+
+    transform: skewX(-22deg);
+
+    background: rgba(255,255,255,.35);
+
+    animation: brilloBoton 3.2s ease-in-out infinite;
+
+    pointer-events: none;
+}
+
+@keyframes flotarGlow {
+    0%,100% {
+        transform:
+            translateX(-50%)
+            translateY(0);
+
+        box-shadow:
+            0 8px 20px rgba(0,0,0,.16),
+            0 0 0 rgba(209,3,15,0);
+    }
+
+    50% {
+        transform:
+            translateX(-50%)
+            translateY(-7px);
+
+        box-shadow:
+            0 14px 28px rgba(0,0,0,.18),
+            0 0 18px rgba(209,3,15,.45);
+    }
+}
+
+@keyframes brilloBoton {
+    0% {
+        left: -80%;
+    }
+
+    45%,100% {
+        left: 130%;
+    }
+}
+
+
+/* =========================================================
+   INVITACIÓN
+   ========================================================= */
+
+.invitacion {
+    position: relative;
+
+    width: 100%;
+    max-width: 100%;
+
+    overflow: visible;
+
+    opacity: 0;
+    visibility: hidden;
+}
+
+.invitacion.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* =========================================================
+   TRANSICIÓN
+   ========================================================= */
+
+.transicion-entrada {
+    position: fixed;
+    inset: 0;
+
+    z-index: 900;
+
+    pointer-events: none;
+    opacity: 0;
+}
+
+.transicion-entrada.activa {
+    opacity: 1;
+}
+
+.destello {
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.96) 0%,
+            rgba(246,173,193,.85) 25%,
+            rgba(246,173,193,0) 70%
+        );
+
+    transform: scale(.25);
+
+    animation:
+        destelloEntrada .9s ease forwards;
+}
+
+@keyframes destelloEntrada {
+    0% {
+        transform: scale(.2);
+        opacity: 0;
+    }
+
+    35% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(2.3);
+        opacity: 0;
+    }
+}
+
+
+/* =========================================================
+   SECCIONES
+   ========================================================= */
+
+.seccion {
+    position: relative;
+
+    width: 100%;
+    max-width: 100%;
+
+    min-height: 100svh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 76px 20px;
+
+    overflow: visible;
+}
+
+
+/* =========================================================
+   FONDOS
+   ========================================================= */
+
+.grafico-lazo,
+.grafico-fresa,
+.fondo-flotante,
+.fondo-suave,
+.fondo-imagen-seccion,
+.fondo-cuadritos,
+.fondo-cuenta,
+.fondo-fotos,
+.fondo-rsvp,
+.fondo-regalos {
+    position: absolute;
+    pointer-events: none;
+}
+
+.grafico-lazo,
+.grafico-fresa {
+    user-select: none;
+}
+
+
+/* =========================================================
+   LAZOS
+   ========================================================= */
+
+.grafico-lazo {
+    width: min(270px, 30vw);
+    height: auto;
+
+    opacity: 1 !important;
+
+    display: block;
+
+    object-fit: contain !important;
+
+    z-index: 100;
+
+    pointer-events: none;
+
+    filter:
+        drop-shadow(
+            0 12px 18px rgba(112,30,53,.13)
+        );
+
+    transform-origin: center;
+
+    transition:
+        transform .8s ease;
+}
+
+
+/* =========================================================
+   FRESAS
+   ========================================================= */
+
+.grafico-fresa {
+    width: 70px;
+    height: auto;
+
+    opacity: .22;
+
+    z-index: 15;
+
+    filter:
+        drop-shadow(
+            0 8px 14px rgba(112,30,53,.12)
+        );
+}
+
+
+/* =========================================================
+   CONTENIDO
+   ========================================================= */
+
+.bienvenida-contenido,
+.fecha-contenido,
+.cuenta-contenido,
+.ubicacion-contenido,
+.dress-contenido,
+.regalos-contenido,
+.rsvp-contenido {
+    position: relative;
+
+    z-index: 200;
+
+    width: 100%;
+
+    text-align: center;
+
+    opacity: 0;
+
+    transform: translateY(28px);
+
+    transition:
+        opacity .75s ease,
+        transform .85s cubic-bezier(.2,.8,.2,1);
+}
+
+.seccion.activa .bienvenida-contenido,
+.seccion.activa .fecha-contenido,
+.seccion.activa .cuenta-contenido,
+.seccion.activa .ubicacion-contenido,
+.seccion.activa .dress-contenido,
+.seccion.activa .regalos-contenido,
+.seccion.activa .rsvp-contenido {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   ETIQUETAS
+   ========================================================= */
+
+.etiqueta,
+.seccion-etiqueta {
+    font-family: "Cinzel", serif;
+
+    font-size: 8px;
+
+    letter-spacing: .22em;
+
+    font-weight: 600;
+
+    color: var(--rojo);
+}
+
+
+/* =========================================================
+   BIENVENIDA
+   ========================================================= */
+
+.bienvenida {
+    min-height: 100svh;
+
+    background:
+        url("images/fondo-rosado.PNG")
+        center / cover no-repeat;
+
+    padding:
+        78px 24px;
+}
+
+.fondo-bienvenida {
+    display: none;
+}
+
+.bienvenida-contenido {
+    max-width: 520px;
+}
+
+.titulo-bienvenida {
+    position: relative;
+
+    z-index: 5;
+
+    margin-top: 14px;
+
+    font-family: "Joshico", cursive;
+
+    font-size:
+        clamp(42px, 8vw, 76px);
+
+    line-height: 1.08;
+
+    font-weight: normal;
+
+    color: var(--rojo);
+
+    text-shadow:
+        0 7px 24px rgba(209,3,15,.12);
+}
+
+.mensaje-bienvenida {
+    width: min(330px,92%);
+
+    margin:
+        18px auto 0;
+
+    color: var(--rojo);
+
+    font-size: 11px;
+
+    line-height: 1.8;
+}
+
+.frase-especial {
+    width: min(360px,92%);
+
+    margin:
+        24px auto 0;
+
+    color: var(--rojo);
+
+    font-family: "Joshico", cursive;
+
+    font-size: clamp(22px,5vw,30px);
+
+    line-height: 1.25;
+}
+
+.frase-especial span {
+    color: var(--rojo);
+}
+
+
+/* =========================================================
+   MÚSICA
+   ========================================================= */
+
+.reproductor-integrado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 26px;
+}
+
+.boton-musica {
+    width: 56px;
+    height: 56px;
+
+    display: grid;
+    place-items: center;
+
+    background: rgba(255,255,255,.72);
+
+    border:
+        1px solid rgba(209,3,15,.17);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 9px 24px rgba(112,30,53,.12);
+
+    cursor: pointer;
+
+    animation:
+        botonSuave 2.8s ease-in-out infinite;
+}
+
+.disco {
+    width: 41px;
+    height: 41px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background:
+        repeating-radial-gradient(
+            circle,
+            #f8c3d1 0 2px,
+            #f2a7bc 3px 4px
+        );
+
+    border:
+        2px solid rgba(255,255,255,.85);
+}
+
+.boton-musica.sonando .disco {
+    animation:
+        girar 2.4s linear infinite;
+}
+
+.centro-disco {
+    width: 15px;
+    height: 15px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: var(--rojo);
+    color: white;
+
+    font-family: Arial,sans-serif;
+
+    font-size: 7px;
+}
+
+.texto-musica {
+    color: var(--rojo);
+
+    font-size: 7px;
+
+    letter-spacing: .16em;
+}
+
+
+/* =========================================================
+   FECHA
+   ========================================================= */
+
+.fecha {
+    background: #f9d9e4;
+}
+
+.fondo-fecha {
+    display: none;
+}
+
+.fecha-contenido {
+    max-width: 520px;
+}
+
+.fecha .seccion-etiqueta {
+    font-family: "Joshico",cursive;
+
+    font-size:
+        clamp(28px,8vw,44px);
+
+    letter-spacing: 0;
+
+    line-height: 1;
+
+    color: var(--rojo);
+}
+
+.marco-fecha {
+    position: relative;
+
+    width: min(370px,94vw);
+
+    min-height: 330px;
+
+    margin:
+        12px auto 14px;
+
+    display: grid;
+    place-items: center;
+}
+
+.marco-imagen {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    z-index: 5;
+
+    filter:
+        drop-shadow(
+            0 10px 22px rgba(90,24,40,.08)
+        );
+}
+
+.fecha-dia {
+    position: relative;
+
+    z-index: 6;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 24px 38px;
+
+    color: var(--rojo);
+}
+
+.dia-pequeno {
+    font-size: 11px;
+    letter-spacing: .24em;
+    font-weight: 600;
+}
+
+.fecha-dia strong {
+    font-family: "Joshico",cursive;
+
+    font-size:
+        clamp(72px,20vw,112px);
+
+    line-height: .9;
+
+    font-weight: normal;
+}
+
+.fecha-dia .mes {
+    font-size: 11px;
+    letter-spacing: .18em;
+    font-weight: 600;
+}
+
+.fecha-dia .anio {
+    font-size: 9px;
+    letter-spacing: .3em;
+}
+
+.fecha-frase {
+    width: min(320px,90%);
+
+    margin:
+        8px auto 18px;
+
+    font-size: 11px;
+
+    line-height: 1.9;
+
+    color: #714050;
+}
+
+
+/* =========================================================
+   BOTONES GENERALES
+   ========================================================= */
+
+.boton-linea,
+.boton-rojo,
+.boton-subir,
+.rsvp-btn {
+    cursor: pointer;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.boton-linea {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 11px 18px;
+
+    border:
+        1px solid rgba(209,3,15,.45);
+
+    border-radius: 999px;
+
+    background:
+        rgba(255,255,255,.65);
+
+    color: var(--rojo);
+
+    font-size: 8px;
+
+    letter-spacing: .13em;
+
+    text-decoration: none;
+}
+
+.boton-rojo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 14px 23px;
+
+    border-radius: 999px;
+
+    color: white;
+
+    background: var(--rojo);
+
+    box-shadow:
+        0 12px 25px rgba(209,3,15,.2);
+
+    font-size: 8px;
+
+    letter-spacing: .15em;
+
+    text-decoration: none;
+}
+
+.boton-linea:hover,
+.boton-rojo:hover {
+    transform:
+        translateY(-2px)
+        scale(1.03);
+}
+
+
+/* =========================================================
+   CUENTA
+   ========================================================= */
+
+.cuenta {
+    min-height: 82svh;
+
+    background: var(--rojo);
+
+    color: white;
+}
+
+.fondo-cuenta {
+    inset: 0;
+
+    z-index: 0;
+
+    background:
+        radial-gradient(
+            circle at 10% 15%,
+            rgba(255,255,255,.18),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(246,173,193,.25),
+            transparent 28%
+        ),
+        linear-gradient(
+            145deg,
+            #d1030f,
+            #ad020c
+        );
+}
+
+.cuenta-contenido {
+    max-width: 650px;
+}
+
+.cuenta h2,
+.rsvp h2 {
+    margin-top: 13px;
+
+    font-family: "Joshico",cursive;
+
+    font-size:
+        clamp(38px,10vw,60px);
+
+    line-height: .95;
+
+    font-weight: normal;
+}
+
+.cuenta .seccion-etiqueta,
+.rsvp .seccion-etiqueta {
+    color: rgba(255,255,255,.82);
+}
+
+.contador {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 8px;
+
+    margin-top: 35px;
+}
+
+.contador-item {
+    min-height: 92px;
+
+    padding: 10px 3px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border:
+        1px solid rgba(255,255,255,.36);
+
+    border-radius: 18px;
+
+    color: white;
+
+    background:
+        rgba(255,255,255,.08);
+
+    cursor: pointer;
+}
+
+.contador-item:hover,
+.contador-item.pulsado {
+    transform: translateY(-4px);
+
+    background:
+        rgba(255,255,255,.15);
+}
+
+.contador-item strong {
+    font-size:
+        clamp(23px,7vw,38px);
+
+    font-weight: 500;
+}
+
+.contador-item span {
+    margin-top: 5px;
+
+    font-size: 6px;
+
+    letter-spacing: .13em;
+
+    opacity: .82;
+}
+
+.micro-mensaje {
+    margin-top: 22px;
+
+    font-size: 8px;
+
+    letter-spacing: .08em;
+
+    opacity: .72;
+}
+
+
+/* =========================================================
+   UBICACIÓN
+   ========================================================= */
+
+.ubicacion {
+    background: #fff7f9;
+}
+
+.fondo-ubicacion {
+    inset: 0;
+
+    z-index: 0;
+
+    background:
+        linear-gradient(
+            rgba(255,248,250,.76),
+            rgba(255,248,250,.88)
+        ),
+        url("images/fondo-rosado.PNG")
+        center / cover;
+
+    opacity: .34;
+}
+
+.ubicacion-contenido {
+    max-width: 480px;
+}
+
+.ubicacion h2,
+.dresscode h2,
+.regalos h2 {
+    margin-top: 11px;
+
+    color: var(--rojo);
+
+    font-family: "Joshico",cursive;
+
+    font-size:
+        clamp(42px,11vw,64px);
+
+    font-weight: normal;
+
+    line-height: .95;
+}
+
+.ubicacion-dato {
+    width: min(310px,100%);
+
+    margin:
+        15px auto 23px;
+
+    padding:
+        21px 18px;
+
+    border-top:
+        1px solid rgba(209,3,15,.22);
+
+    border-bottom:
+        1px solid rgba(209,3,15,.22);
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.ubicacion-dato strong {
+    color: var(--rojo);
+    font-size: 11px;
+}
+
+.ubicacion-dato span {
+    font-size: 9px;
+    color: #79505f;
+}
+
+
+/* =========================================================
+   DRESS CODE
+   ========================================================= */
+
+.dresscode {
+    background: transparent;
+}
+
+.dresscode .fondo-cuadritos {
+    inset: 0;
+
+    z-index: 0;
+
+    background:
+        url("images/cuadritos.PNG")
+        center / cover no-repeat;
+}
+
+.dress-contenido {
+    max-width: 470px;
+}
+
+.dress-subtitulo {
+    margin-top: 10px;
+
+    color: #79505f;
+
+    font-size: 10px;
+}
+
+.colores-dress {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+    width: min(300px,100%);
+
+    margin:
+        25px auto 14px;
+}
+
+.color-opcion {
+    min-height: 50px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 8px 14px;
+
+    border:
+        1px solid rgba(209,3,15,.18);
+
+    border-radius: 999px;
+
+    color: #5e3140;
+
+    background:
+        rgba(255,255,255,.76);
+
+    font-size: 8px;
+
+    letter-spacing: .12em;
+
+    cursor: pointer;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.color-opcion:hover,
+.color-opcion.seleccionado {
+    transform:
+        translateY(-2px)
+        scale(1.02);
+
+    border-color: var(--rojo);
+
+    background: rgba(255,255,255,.98);
+
+    box-shadow:
+        0 10px 24px rgba(91,28,46,.12);
+}
+
+.color-opcion span {
+    width: 30px;
+    height: 30px;
+
+    flex: 0 0 30px;
+
+    border-radius: 50%;
+
+    border:
+        2px solid rgba(255,255,255,.95);
+
+    box-shadow:
+        0 2px 9px rgba(90,30,45,.15);
+}
+
+.color-opcion.blanco span {
+    background: white;
+    border-color: #ead6dd;
+}
+
+.color-opcion.rosa span {
+    background: var(--rosa);
+}
+
+.color-opcion.rojo span {
+    background: var(--rojo);
+}
+
+.dress-mensaje {
+    min-height: 16px;
+
+    color: var(--rojo);
+
+    font-size: 8px;
+
+    letter-spacing: .12em;
+}
+
+
+/* =========================================================
+   REGALOS
+   ========================================================= */
+
+.regalos {
+    position: relative;
+
+    background: #f9d9e4;
+}
+
+.fondo-regalos {
+    inset: 0;
+
+    z-index: 0;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(255,255,255,.72),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(255,255,255,.55),
+            transparent 28%
+        );
+}
+
+.regalos-contenido {
+    max-width: 520px;
+}
+
+.regalos h2 {
+    font-size:
+        clamp(38px,9vw,58px);
+}
+
+.regalos-subtitulo {
+    width: min(350px,92%);
+
+    margin:
+        17px auto 24px;
+
+    color: #79505f;
+
+    font-size: 10px;
+
+    line-height: 1.8;
+}
+
+.regalos-lista {
+    width: min(390px,100%);
+
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.regalo-item {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 16px 19px;
+
+    border:
+        1px solid rgba(209,3,15,.17);
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,.72);
+
+    text-align: left;
+
+    box-shadow:
+        0 10px 25px rgba(91,28,46,.07);
+}
+
+.regalo-icono {
+    width: 38px;
+    height: 38px;
+
+    flex: 0 0 38px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    color: white;
+
+    background: var(--rojo);
+
+    font-size: 17px;
+}
+
+.regalo-item strong {
+    display: block;
+
+    color: var(--rojo);
+
+    font-size: 11px;
+}
+
+.regalo-item p {
+    margin-top: 4px;
+
+    color: #79505f;
+
+    font-size: 9px;
+}
+
+.regalos-frase {
+    margin-top: 25px;
+
+    color:  var(--rojo);
+
+
+    font-family: "Joshico",cursive;
+
+    font-size: 18px;
+
+    line-height: 1.35;
+}
+
+
+/* =========================================================
+   RSVP
+   ========================================================= */
+
+.rsvp {
+    min-height: 100svh;
+
+    background: var(--rojo);
+
+    color: white;
+}
+
+.fondo-rsvp {
+    inset: 0;
+
+    z-index: 0;
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(255,255,255,.15),
+            transparent 33%
+        ),
+        linear-gradient(
+            150deg,
+            #d1030f,
+            #b3020d
+        );
+}
+
+.rsvp-contenido {
+    max-width: 500px;
+}
+
+.rsvp h2 {
+    color: white;
+
+    margin-top: 15px;
+}
+
+.rsvp .seccion-etiqueta {
+    color:
+        rgba(255,255,255,.82);
+}
+
+.rsvp-texto {
+    width: min(320px,90%);
+
+    margin:
+        17px auto 0;
+
+    color:
+        rgba(255,255,255,.82);
+
+    font-size: 10px;
+
+    line-height: 1.9;
+}
+
+.rsvp-fecha-limite {
+    width: min(320px,92%);
+
+    margin:
+        23px auto 0;
+
+    padding:
+        12px 16px;
+
+    border:
+        1px solid rgba(255,255,255,.27);
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    color:
+        rgba(255,255,255,.8);
+
+    font-size: 7px;
+
+    letter-spacing: .14em;
+
+    line-height: 1.8;
+}
+
+.rsvp-fecha-limite strong {
+    color: white;
+
+    font-size: 8px;
+}
+
+.rsvp-botones {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+    width: min(300px,100%);
+
+    margin:
+        22px auto 18px;
+}
+
+.rsvp-btn {
+    min-height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 999px;
+
+    color: var(--rojo);
+
+    background: white;
+
+    font-size: 8px;
+
+    letter-spacing: .1em;
+
+    text-decoration: none;
+
+    box-shadow:
+        0 10px 22px rgba(75,0,8,.16);
+}
+
+.rsvp-btn.secundario {
+    color: white;
+
+    background: transparent;
+
+    border:
+        1px solid rgba(255,255,255,.5);
+
+    box-shadow: none;
+}
+
+.rsvp-btn:hover {
+    transform:
+        translateY(-2px)
+        scale(1.03);
+}
+
+.contacto-rsvp {
+    margin-top: 24px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 5px;
+
+    color:
+        rgba(255,255,255,.82);
+
+    font-size: 8px;
+
+    line-height: 1.5;
+}
+
+.contacto-rsvp strong {
+    color: white;
+
+    font-size: 10px;
+}
+
+.contacto-rsvp a {
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 10px;
+
+    letter-spacing: .08em;
+}
+
+.cierre {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-top: 28px;
+}
+
+.cierre span {
+    width: 42px;
+    height: 1px;
+
+    background:
+        rgba(255,255,255,.45);
+}
+
+
+/* =========================================================
+   POSICIÓN DE LOS LAZOS
+   ========================================================= */
+
+/* FECHA → CUENTA */
+
+.cuenta-lazo {
+    right: 2%;
+    bottom: -72px;
+
+    width: min(285px,28vw);
+
+    transform:
+        rotate(-4deg);
+}
+
+
+/* CUENTA → UBICACIÓN */
+
+.cuenta-conector {
+    display: block;
+
+    left: 2%;
+    top: -72px;
+
+    width: min(270px,27vw);
+
+    transform:
+        rotate(4deg);
+}
+
+
+/* UBICACIÓN → DRESS */
+
+.ubicacion-lazo {
+    right: 2%;
+    bottom: -72px;
+
+    width: min(285px,28vw);
+
+    transform:
+        rotate(-4deg);
+}
+
+
+/* DRESS → REGALOS */
+
+.dress-lazo {
+    left: 2%;
+    top: -72px;
+
+    width: min(285px,28vw);
+
+    transform:
+        rotate(4deg);
+}
+
+
+/* REGALOS → RSVP */
+
+.regalos-lazo {
+    left: 2%;
+    top: -72px;
+
+    width: min(285px,28vw);
+
+    transform:
+        rotate(4deg);
+}
+
+
+/* RSVP */
+
+.rsvp-lazo {
+    right: 2%;
+    top: -72px;
+
+    width: min(290px,29vw);
+
+    transform:
+        rotate(-4deg);
+}
+
+
+/* =========================================================
+   FRESAS
+   ========================================================= */
+
+.ubicacion-fresa-1 {
+    left: 6%;
+    top: 17%;
+}
+
+.ubicacion-fresa-2 {
+    right: 7%;
+    bottom: 15%;
+
+    transform: rotate(25deg);
+}
+
+.dress-fresa {
+    right: 8%;
+    bottom: 13%;
+
+    transform: rotate(-18deg);
+}
+
+.regalos-fresa {
+    left: 7%;
+    bottom: 15%;
+
+    transform: rotate(-18deg);
+}
+
+.rsvp-fresa {
+    left: 7%;
+    bottom: 14%;
+
+    transform: rotate(-18deg);
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+    width: 100%;
+
+    padding:
+        28px 20px 32px;
+
+    text-align: center;
+
+    background: #fff;
+
+    color: #b17582;
+}
+
+.footer p {
+    margin-bottom: 7px;
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+.footer strong {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--rojo);
+
+    font-family: "Joshico",cursive;
+
+    font-size: 24px;
+
+    font-weight: normal;
+}
+
+.footer span {
+    display: block;
+
+    margin-top: 4px;
+
+    font-size: 8px;
+
+    letter-spacing: .6px;
+
+    opacity: .7;
+}
+
+
+/* =========================================================
+   ANIMACIONES
+   ========================================================= */
+
+@keyframes girar {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes numeroCambio {
+    0% {
+        transform: scale(1);
+    }
+
+    45% {
+        transform: scale(1.14);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes botonSuave {
+    0%,100% {
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+    50% {
+        transform:
+            translateY(-2px)
+            scale(1.025);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (min-width: 601px) and (max-width: 1100px) {
+
+    .seccion {
+        padding-left: 45px;
+        padding-right: 45px;
+    }
+
+    .colores-dress {
+        flex-direction: row;
+
+        width: min(500px,100%);
+    }
+
+    .color-opcion {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .grafico-lazo {
+        width: 230px;
+    }
+
+    .cuenta-lazo,
+    .ubicacion-lazo,
+    .regalos-lazo,
+    .rsvp-lazo {
+        right: 1%;
+    }
+
+    .cuenta-conector,
+    .dress-lazo,
+    .regalos-lazo {
+        left: 1%;
+    }
+}
+
+
+/* =========================================================
+   MÓVILES
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+
+        overflow-x: hidden;
+    }
+
+    .invitacion {
+        width: 100%;
+        max-width: 100%;
+
+        overflow-x: clip;
+        overflow-y: visible;
+    }
+
+    .seccion {
+        width: 100%;
+        max-width: 100%;
+
+        min-height: auto;
+
+        padding:
+            78px 20px;
+    }
+
+
+    /* -----------------------------------------------------
+       PORTADA
+    ----------------------------------------------------- */
+
+    .portada {
+        height: 100dvh;
+        min-height: 100svh;
+    }
+
+    .imagen-portada {
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .boton-abrir {
+        bottom:
+            max(28px,env(safe-area-inset-bottom));
+
+        min-width: 210px;
+
+        padding:
+            13px 22px;
+
+        font-size: 10px;
+    }
+
+
+    /* -----------------------------------------------------
+       BIENVENIDA
+    ----------------------------------------------------- */
+
+    .bienvenida {
+        min-height: 100svh;
+
+        padding:
+            85px 20px 65px;
+    }
+
+    .titulo-bienvenida {
+        font-size:
+            clamp(42px,12vw,62px);
+    }
+
+    .mensaje-bienvenida {
+        font-size: 10px;
+    }
+
+    .frase-especial {
+        font-size:
+            clamp(21px,6vw,27px);
+
+        margin-top: 22px;
+    }
+
+
+    /* -----------------------------------------------------
+       FECHA
+    ----------------------------------------------------- */
+
+    .fecha {
+        min-height: 100svh;
+
+        padding:
+            80px 16px 105px;
+    }
+
+    .marco-fecha {
+        width: min(350px,96vw);
+
+        min-height: 310px;
+    }
+
+    .fecha-dia {
+        padding:
+            20px 25px;
+    }
+
+    .fecha-dia strong {
+        font-size: 82px;
+    }
+
+
+    /* -----------------------------------------------------
+       CUENTA
+    ----------------------------------------------------- */
+
+    .cuenta {
+        min-height: 76svh;
+
+        padding:
+            92px 16px 100px;
+    }
+
+    .contador {
+        gap: 5px;
+
+        margin-top: 28px;
+    }
+
+    .contador-item {
+        min-height: 78px;
+
+        border-radius: 15px;
+    }
+
+    .contador-item strong {
+        font-size:
+            clamp(20px,7vw,29px);
+    }
+
+    .contador-item span {
+        font-size: 5px;
+    }
+
+
+    /* -----------------------------------------------------
+       UBICACIÓN
+    ----------------------------------------------------- */
+
+    .ubicacion {
+        padding:
+            100px 20px 110px;
+    }
+
+
+    /* -----------------------------------------------------
+       DRESS
+    ----------------------------------------------------- */
+
+    .dresscode {
+        padding:
+            100px 20px 110px;
+    }
+
+
+    /* -----------------------------------------------------
+       REGALOS
+    ----------------------------------------------------- */
+
+    .regalos {
+        padding:
+            105px 20px 110px;
+    }
+
+    .regalos h2 {
+        font-size:
+            clamp(36px,10vw,52px);
+    }
+
+
+    /* -----------------------------------------------------
+       RSVP
+    ----------------------------------------------------- */
+
+    .rsvp {
+        padding:
+            105px 20px 80px;
+    }
+
+    .rsvp h2 {
+        font-size:
+            clamp(40px,11vw,58px);
+    }
+
+
+    /* -----------------------------------------------------
+       LAZOS MÓVILES
+       ----------------------------------------------------- */
+
+    /*
+       Ajuste principal:
+       Los lazos ahora son un poco más pequeños y
+       se desplazan más hacia las esquinas.
+
+       Esto deja más aire alrededor del contenido
+       y evita que parezcan amontonados.
+    */
+
+    .grafico-lazo {
+        width: 190px;
+
+        height: auto;
+
+        z-index: 1000 !important;
+
+        opacity: 1 !important;
+
+        visibility: visible !important;
+
+        object-fit: contain !important;
+
+        pointer-events: none;
+    }
+
+
+    /* FECHA → CUENTA */
+
+    .cuenta-lazo {
+        right: -18px;
+        bottom: -67px;
+
+        width: 190px;
+
+        transform:
+            rotate(-5deg);
+    }
+
+
+    /* CUENTA → UBICACIÓN */
+
+    .cuenta-conector {
+        left: -18px;
+        top: -67px;
+
+        width: 185px;
+
+        transform:
+            rotate(5deg);
+    }
+
+
+    /* UBICACIÓN → DRESS */
+
+    .ubicacion-lazo {
+        right: -18px;
+        bottom: -67px;
+
+        width: 190px;
+
+        transform:
+            rotate(-5deg);
+    }
+
+
+    /* DRESS → REGALOS */
+
+    .dress-lazo {
+        left: -18px;
+        top: -67px;
+
+        width: 190px;
+
+        transform:
+            rotate(5deg);
+    }
+
+
+    /* REGALOS → RSVP */
+
+    .regalos-lazo {
+        left: -18px;
+        top: -67px;
+
+        width: 190px;
+
+        transform:
+            rotate(5deg);
+    }
+
+
+    /* RSVP */
+
+    .rsvp-lazo {
+        right: -18px;
+        top: -67px;
+
+        width: 195px;
+
+        transform:
+            rotate(-5deg);
+    }
+
+
+    /* -----------------------------------------------------
+       FRESAS
+    ----------------------------------------------------- */
+
+    .grafico-fresa {
+        width: 52px;
+    }
+
+    .ubicacion-fresa-1 {
+        left: 3%;
+        top: 15%;
+    }
+
+    .ubicacion-fresa-2 {
+        right: 3%;
+        bottom: 13%;
+    }
+
+    .dress-fresa {
+        right: 4%;
+        bottom: 10%;
+    }
+
+    .regalos-fresa {
+        left: 4%;
+        bottom: 10%;
+    }
+
+    .rsvp-fresa {
+        left: 4%;
+        bottom: 10%;
+    }
+
+
+    /* -----------------------------------------------------
+       FOOTER
+    ----------------------------------------------------- */
+
+    .footer {
+        padding:
+            25px 16px 30px;
+    }
+
+    .footer strong {
+        font-size: 21px;
+    }
+
+    .footer span {
+        font-size: 7px;
+    }
+}
+
+
+/* =========================================================
+   TELÉFONOS MUY PEQUEÑOS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .boton-abrir {
+        min-width: 190px;
+
+        padding:
+            12px 18px;
+
+        font-size: 9px;
+    }
+
+    .contador-item {
+        min-height: 72px;
+    }
+
+    .fecha-dia strong {
+        font-size: 78px;
+    }
+
+
+    /* LAZOS MÁS COMPACTOS PARA PANTALLAS PEQUEÑAS */
+
+    .grafico-lazo {
+        width: 170px;
+    }
+
+    .cuenta-lazo {
+        right: -17px;
+        bottom: -63px;
+        width: 170px;
+    }
+
+    .cuenta-conector {
+        left: -17px;
+        top: -63px;
+        width: 165px;
+    }
+
+    .ubicacion-lazo {
+        right: -17px;
+        bottom: -63px;
+        width: 170px;
+    }
+
+    .dress-lazo {
+        left: -17px;
+        top: -63px;
+        width: 170px;
+    }
+
+    .regalos-lazo {
+        left: -17px;
+        top: -63px;
+        width: 170px;
+    }
+
+    .rsvp-lazo {
+        right: -17px;
+        top: -63px;
+        width: 175px;
+    }
+}
+
+
+/* =========================================================
+   PANTALLAS GRANDES
+   ========================================================= */
+
+@media (min-width: 1200px) {
+
+    .seccion {
+        padding-top: 90px;
+        padding-bottom: 90px;
+    }
+
+    .grafico-lazo {
+        width: 280px;
+    }
+
+    .cuenta-lazo,
+    .ubicacion-lazo,
+    .regalos-lazo,
+    .rsvp-lazo {
+        right: 3%;
+    }
+
+    .cuenta-conector,
+    .dress-lazo,
+    .regalos-lazo {
+        left: 3%;
+    }
+}
+
+
+/* =========================================================
+   REDUCIR MOVIMIENTO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+
+/* =========================================================
+   LIMPIEZA VISUAL PNG
+   ========================================================= */
+
+.marco-imagen,
+.grafico-lazo,
+.grafico-fresa {
+    background: transparent !important;
+
+    mix-blend-mode: normal !important;
+
+    object-fit: contain !important;
+}
+
+/* =========================================================
+   AJUSTE FINAL RESPONSIVE — PRIORIDAD TELÉFONO
+   Mantiene la estructura original y corrige presentación.
+   ========================================================= */
+
+.frase-especial,
+.titulo-bienvenida,
+.fecha .seccion-etiqueta,
+.fecha-dia strong,
+.cuenta h2,
+.ubicacion h2,
+.dresscode h2,
+.regalos h2,
+.regalos-frase,
+.rsvp h2,
+.footer strong {
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+}
+
+.frase-especial {
+    font-family: "Joshico", cursive !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
+@media (max-width: 600px) {
+
+    html,
+    body {
+        min-width: 0;
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden !important;
+    }
+
+    .invitacion {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden !important;
+        overflow-y: visible;
+    }
+
+    .seccion {
+        width: 100%;
+        max-width: 100%;
+        overflow: visible;
+    }
+
+    /* BIENVENIDA */
+    .bienvenida {
+        min-height: 100svh;
+        padding: 74px 18px 72px;
+    }
+
+    .bienvenida-contenido {
+        width: 100%;
+        max-width: 360px;
+    }
+
+    .titulo-bienvenida {
+        font-size: clamp(46px, 14vw, 62px);
+        line-height: 1;
+    }
+
+    .mensaje-bienvenida {
+        width: min(310px, 94%);
+        font-size: 10px;
+        line-height: 1.7;
+    }
+
+    .frase-especial {
+        width: min(330px, 94%);
+        margin: 24px auto 0;
+        font-size: clamp(24px, 7.2vw, 31px);
+        line-height: 1.12;
+        letter-spacing: 0;
+    }
+
+    .reproductor-integrado {
+        margin-top: 25px;
+    }
+
+    /* SECCIONES */
+    .fecha {
+        min-height: 100svh;
+        padding: 76px 16px 118px;
+    }
+
+    .cuenta {
+        min-height: 76svh;
+        padding: 112px 16px 118px;
+    }
+
+    .ubicacion {
+        padding: 112px 18px 120px;
+    }
+
+    .dresscode {
+        padding: 112px 18px 120px;
+    }
+
+    .regalos {
+        padding: 116px 18px 122px;
+    }
+
+    .rsvp {
+        min-height: 100svh;
+        padding: 116px 18px 82px;
+    }
+
+    /* REGALOS */
+    .regalos-contenido {
+        width: 100%;
+        max-width: 360px;
+    }
+
+    .regalos h2 {
+        font-size: clamp(34px, 9.8vw, 47px);
+        line-height: .98;
+    }
+
+    .regalos-subtitulo {
+        width: min(330px, 96%);
+        margin: 14px auto 22px;
+        font-size: 10px;
+        line-height: 1.7;
+    }
+
+    .regalos-lista {
+        width: min(350px, 100%);
+        gap: 10px;
+    }
+
+    .regalo-item {
+        gap: 12px;
+        padding: 14px 15px;
+        border-radius: 17px;
+    }
+
+    .regalo-icono {
+        width: 34px;
+        height: 34px;
+        flex-basis: 34px;
+        font-size: 15px;
+    }
+
+    .regalo-item strong {
+        font-size: 10px;
+    }
+
+    .regalo-item p {
+        font-size: 8.5px;
+        line-height: 1.45;
+    }
+
+    .regalos-frase {
+        width: 94%;
+        margin: 21px auto 0;
+        font-size: 16px;
+        line-height: 1.3;
+    }
+
+    /* RSVP */
+    .rsvp-contenido {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .rsvp h2 {
+        font-size: clamp(42px, 12.5vw, 56px);
+        line-height: .9;
+    }
+
+    .rsvp-texto {
+        width: min(310px, 94%);
+        margin-top: 16px;
+        font-size: 9px;
+        line-height: 1.75;
+    }
+
+    .rsvp-fecha-limite {
+        width: min(315px, 96%);
+        margin-top: 19px;
+        padding: 11px 12px;
+        font-size: 7px;
+        line-height: 1.65;
+    }
+
+    .rsvp-fecha-limite strong {
+        font-size: 8px;
+    }
+
+    .rsvp-botones {
+        width: min(330px, 100%);
+        gap: 11px;
+        margin: 20px auto 17px;
+    }
+
+    .rsvp-btn {
+        width: 100%;
+        min-height: 54px;
+        padding: 13px 18px;
+        border-radius: 999px;
+        font-size: 9px;
+        line-height: 1.2;
+        letter-spacing: .11em;
+        text-align: center;
+        white-space: normal;
+    }
+
+    .rsvp-btn:active {
+        transform: scale(.98);
+    }
+
+    /* LAZOS: más pequeños y más hacia las esquinas */
+    .grafico-lazo {
+        width: 164px !important;
+        max-width: 46vw !important;
+        height: auto !important;
+        z-index: 100 !important;
+        opacity: 1 !important;
+    }
+
+    .cuenta-lazo {
+        right: -30px !important;
+        bottom: -84px !important;
+        width: 164px !important;
+        transform: rotate(-5deg);
+    }
+
+    .cuenta-conector {
+        left: -30px !important;
+        top: -84px !important;
+        width: 160px !important;
+        transform: rotate(5deg);
+    }
+
+    .ubicacion-lazo {
+        right: -30px !important;
+        bottom: -84px !important;
+        width: 164px !important;
+        transform: rotate(-5deg);
+    }
+
+    .dress-lazo {
+        left: -30px !important;
+        top: -84px !important;
+        width: 164px !important;
+        transform: rotate(5deg);
+    }
+
+    .regalos-lazo {
+        left: -30px !important;
+        top: -84px !important;
+        width: 164px !important;
+        transform: rotate(5deg);
+    }
+
+    .rsvp-lazo {
+        right: -30px !important;
+        top: -84px !important;
+        width: 168px !important;
+        transform: rotate(-5deg);
+    }
+
+    .grafico-fresa {
+        width: 45px !important;
+    }
+
+    /* FECHA */
+    .marco-fecha {
+        width: min(345px, 96vw);
+        min-height: 295px;
+    }
+
+    .fecha-dia {
+        padding: 18px 20px;
+        gap: 4px;
+    }
+
+    .fecha-dia strong {
+        font-size: clamp(72px, 22vw, 86px);
+    }
+
+    .fecha-frase {
+        width: min(310px, 94%);
+        font-size: 10px;
+        line-height: 1.75;
+    }
+
+    /* CUENTA */
+    .contador {
+        width: min(350px, 100%);
+        gap: 5px;
+    }
+
+    .contador-item {
+        min-width: 0;
+        min-height: 76px;
+        padding: 8px 2px;
+    }
+
+    .contador-item strong {
+        font-size: clamp(20px, 7vw, 28px);
+    }
+
+    .contador-item span {
+        font-size: 5px;
+        letter-spacing: .08em;
+    }
+
+    /* DRESS CODE */
+    .colores-dress {
+        width: min(330px, 100%);
+        gap: 9px;
+        margin-top: 22px;
+    }
+
+    .color-opcion {
+        min-height: 49px;
+        padding: 7px 13px;
+        font-size: 8px;
+    }
+
+    /* PORTADA */
+    .boton-abrir {
+        min-width: 205px;
+        max-width: calc(100% - 36px);
+        padding: 13px 20px;
+        font-size: 9px;
+    }
+
+    /* FOOTER */
+    .footer {
+        padding: 25px 16px 30px;
+    }
+
+    .footer span {
+        overflow-wrap: anywhere;
+    }
+}
+
+@media (max-width: 380px) {
+
+    .bienvenida {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .frase-especial {
+        width: min(305px, 94vw);
+        font-size: clamp(22px, 7vw, 27px);
+    }
+
+    .rsvp {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .rsvp-botones {
+        width: min(305px, 100%);
+    }
+
+    .rsvp-btn {
+        min-height: 52px;
+        font-size: 8.5px;
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .grafico-lazo {
+        width: 150px !important;
+        max-width: 44vw !important;
+    }
+
+    .cuenta-lazo {
+        right: -25px !important;
+        bottom: -76px !important;
+    }
+
+    .cuenta-conector {
+        left: -25px !important;
+        top: -76px !important;
+    }
+
+    .ubicacion-lazo {
+        right: -25px !important;
+        bottom: -76px !important;
+    }
+
+    .dress-lazo,
+    .regalos-lazo {
+        left: -25px !important;
+        top: -76px !important;
+    }
+
+    .rsvp-lazo {
+        right: -25px !important;
+        top: -76px !important;
+    }
+}
+
+@media (max-width: 600px) and (max-height: 720px) {
+
+    .bienvenida {
+        padding-top: 62px;
+        padding-bottom: 58px;
+    }
+
+    .frase-especial {
+        margin-top: 18px;
+    }
+
+    .rsvp {
+        padding-top: 100px;
+        padding-bottom: 68px;
+    }
+
+    .rsvp-botones {
+        margin-top: 16px;
+    }
+
+    .rsvp-btn {
+        min-height: 50px;
+    }
+}
