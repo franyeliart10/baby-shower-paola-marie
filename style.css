@@ -2640,3 +2640,46 @@ button {
         min-height: 50px;
     }
 }
+/* Estilos Formulario RSVP Base de Datos */
+.rsvp-box {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 20px;
+    border-radius: 16px;
+    margin-top: 15px;
+    border: 1px solid #f6adc1;
+}
+
+.rsvp-family-title {
+    font-family: 'Cinzel', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #4a276b;
+    margin-bottom: 15px;
+}
+
+.rsvp-member-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed #f6adc1;
+    font-size: 13px;
+    color: #333;
+}
+
+.rsvp-select {
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid #f6adc1;
+    font-size: 12px;
+    background: #ffffff;
+    color: #4a276b;
+    outline: none;
+}
+
+.rsvp-msg {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e824c;
+    margin-top: 12px;
+}
