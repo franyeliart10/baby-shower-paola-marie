@@ -718,3 +718,164 @@ document
     });
 
 })();
+// Configuración de conexión con Supabase
+const SUPABASE_URL = "https://ysyfycngjqgitwyfxeto.supabase.co";
+const SUPABASE_ANON_KEY = "sb_secret_eYR6k9lZupclBDdDQZPluA_oZMrmCRN";
+
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+document.addEventListener('DOMContentLoaded', async () => {
+
+    // --- LÓGICA DE APERTURA, MÚSICA Y CUENTA REGRESIVA ---
+    const btnAbrir = document.getElementById('abrirInvitacion');
+    const portada = document.getElementById('portada');
+    const invitacion = document.getElementById('invitacion');
+    const musica = document.getElementById('musica');
+    const botonMusica = document.getElementById('botonMusica');
+    const controlFlotante = document.getElementById('controlMusicaFlotante');
+
+    if (btnAbrir) {
+        btnAbrir.addEventListener('click', () => {
+            portada.style.display = 'none';
+            invitacion.style.display = 'block';
+            if (musica) {
+                musica.play().catch(e => console.log("Audio autoplay prevenido:", e));
+            }
+        });
+    }
+
+    if (botonMusica && musica) {
+        botonMusica.addEventListener('click', () => {
+            if (musica.paused) musica.play();
+            else musica.pause();
+        });
+    }
+
+    if (controlFlotante && musica) {
+        controlFlotante.addEventListener('click', () => {
+            if (musica.paused) musica.play();
+            else musica.pause();
+        });
+    }
+
+    // Cuenta Regresiva (Ejemplo: 01 Noviembre 2026 15:00:00)
+    const fechaEvento = new Date("2026-11-01T15:00:00").getTime();
+    setInterval(() => {
+        const ahora = new Date().getTime();
+        const diferencia = fechaEvento - ahora;
+
+        if (diferencia > 0) {
+            const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+            if (document.getElementById('dias')) document.getElementById('dias').innerText = dias.toString().padStart(2, '0');
+            if (document.getElementById('horas')) document.getElementById('horas').innerText = horas.toString().padStart(2, '0');
+            if (document.getElementById('minutos')) document.getElementById('minutos').innerText = minutos.toString().padStart(2, '0');
+            if (document.getElementById('segundos')) document.getElementById('segundos').innerText = segundos.toString().padStart(2, '0');
+        }
+    }, 1000);
+
+
+    // --- LÓGICA DE CONEXIÓN RSVP CON SUPABASE ---
+    const urlParams = new URLSearchParams(window.location.search);
+    const familyId = urlParams.get('to');
+
+    const titleElem = document.getElementById('rsvp-family-name');
+    const membersListElem = document.getElementById('rsvp-members-list');
+    const formRSVP = document.getElementById('rsvp-db-form');
+    const responseMsg = document.getElementById('rsvp-response-message');
+
+    if (!familyId) {
+        if (titleElem) titleElem.innerText = "¡Bienvenidos! Por favor ingresa desde tu enlace personalizado.";
+        if (formRSVP) formRSVP.style.display = 'none';
+        return;
+    }
+
+    // 1. Obtener los datos de la familia desde Supabase
+    try {
+        const { data: family, error } = await supabaseClient
+            .from('families')
+            .select('*')
+            .eq('id', familyId)
+            .single();
+
+        if (error || !family) {
+            if (titleElem) titleElem.innerText = "Pase de invitación no encontrado.";
+            if (formRSVP) formRSVP.style.display = 'none';
+            return;
+        }
+
+        if (titleElem) titleElem.innerText = `¡Hola ${family.name}! ♡`;
+
+        // Generar lista de integrantes a confirmar
+        const membersArray = family.members ? family.members.split(',').map(m => m.trim()) : [family.name];
+        membersListElem.innerHTML = '';
+
+        membersArray.forEach((memberName, idx) => {
+            const row = document.createElement('div');
+            row.className = 'rsvp-member-row';
+            row.innerHTML = `
+                <span><strong>${memberName}</strong></span>
+                <select class="rsvp-select" data-member-name="${memberName}">
+                    <option value="confirmado">✅ Asistiré</option>
+                    <option value="rechazado">❌ No podré asistir</option>
+                </select>
+            `;
+            membersListElem.appendChild(row);
+        });
+
+    } catch (err) {
+        console.error("Error consultando el pase:", err);
+    }
+
+    // 2. Enviar confirmación a Supabase
+    if (formRSVP) {
+        formRSVP.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btnSubmit = document.getElementById('btn-submit-rsvp');
+            btnSubmit.disabled = true;
+            btnSubmit.innerText = "Guardando...";
+
+            try {
+                // Actualizar estado del pase familiar
+                await supabaseClient
+                    .from('families')
+                    .update({ status: 'confirmado' })
+                    .eq('id', familyId);
+
+                // Insertar integrantes en la tabla persons
+                const selects = document.querySelectorAll('.rsvp-select');
+                for (const sel of selects) {
+                    const memberName = sel.getAttribute('data-member-name');
+                    const statusVal = sel.value;
+
+                    await supabaseClient
+                        .from('persons')
+                        .insert({
+                            id: 'p_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+                            family_id: familyId,
+                            family_name: titleElem.innerText.replace('¡Hola ', '').replace('! ♡', ''),
+                            name: memberName,
+                            type: 'Adulto',
+                            status: statusVal,
+                            checked_in: false,
+                            table_id: null,
+                            seat: null
+                        });
+                }
+
+                formRSVP.style.display = 'none';
+                responseMsg.style.display = 'block';
+                responseMsg.innerText = "¡Muchas gracias! Tu respuesta ha sido registrada con éxito. ¡Nos vemos en la celebración! ♡";
+
+            } catch (err) {
+                console.error("Error guardando confirmación:", err);
+                alert("Hubo un detalle guardando tu respuesta. Por favor intenta de nuevo.");
+                btnSubmit.disabled = false;
+                btnSubmit.innerText = "CONFIRMAR ASISTENCIA";
+            }
+        });
+    }
+});
